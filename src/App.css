@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primaryColor: #10218b;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.active {
+  color: green !important;
+}
+
+.nav-link {
+  color: #10218b;
+  font-weight: 600;
+  width: 170px;
+}
+
+.card {
+  transition: all .5s;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.card:hover img {
+  transform: scale(1.1);
+  transition: 1s;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.product-details-img img:hover {
+  transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -ms-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+}
+
+.distributor-box {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 10px;
+  transition: all .5s;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  margin-bottom: 25px;
+}
+
+.distributor-box:hover {
+  background-color: white;
+}
+
+.distributor-box h4 {
+  color: var(--primaryColor);
+  margin: 0;
+  text-align: center;
+}
+
+.distributor-box .address {
+  margin-top: 20px;
+}
+
+.distributor-box .address ul {
+  margin: 0;
+  list-style: none;
+}
+
+.distributor-box .address li {
+  display: block;
+  padding: 5px;
+}
+
+.contactus-box {
+  padding: 10px;
+  color: gray;
+}
+
+
+.contactus-box h4 {
+  color: var(--primaryColor);
+  margin: 0;
+  text-align: center;
+}
+
+.contactus-box .address {
+  margin-top: 20px;
+}
+
+.contactus-box .address ul {
+  margin: 0;
+  list-style: none;
+}
+
+.contactus-box .address li {
+  display: block;
+  padding: 5px;
+}
