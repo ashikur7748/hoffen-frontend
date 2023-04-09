@@ -34,7 +34,17 @@ const store = async (url, values) => {
 
 }
 
+const show = async (url) => {
+  try {
+    const response = axios.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+
+}
 
 
 
-export { orderSubmitted, store }
+
+export { orderSubmitted, store, show }

@@ -35,6 +35,10 @@ import { AddDistributor } from './modules/admin/pages/distributor/AddDistributor
 import { ShowDistributor } from './modules/admin/pages/distributor/ShowDistributor';
 import { AddEvent } from './modules/admin/pages/event/AddEvent';
 import { ShowEvent } from './modules/admin/pages/event/ShowEvent';
+import { AddNews } from './modules/admin/pages/news/AddNews';
+import { ShowNews } from './modules/admin/pages/news/ShowNews';
+import { NewsDetails } from './modules/frontend/pages/NewsDetails';
+import { EventDetails } from './modules/frontend/pages/EventDetails';
 
 
 
@@ -62,7 +66,9 @@ function App() {
           <Route path="/surgical" element={<Surgical />} />
           <Route path="/others" element={<Others />} />
           <Route path="/news" element={<News />} />
+          <Route path="/news/details" element={<NewsDetails />} />
           <Route path="/event" element={<Event />} />
+          <Route path="/event/details" element={<EventDetails />} />
           <Route path="/distributor" element={<Distributor />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/support" element={<Support />} />
@@ -84,6 +90,8 @@ function App() {
           <Route path="/admin/distributor/show" element={<ShowDistributor />} />
           <Route path="/admin/event/add" element={<AddEvent />} />
           <Route path="/admin/event/show" element={<ShowEvent />} />
+          <Route path="/admin/news/add" element={<AddNews />} />
+          <Route path="/admin/news/show" element={<ShowNews />} />
           <Route path="/errorpageprivate/:errors" element={<ErrorPagePrivate />} />
         </Route>
       </Routes>

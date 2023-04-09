@@ -33,19 +33,10 @@ const Login = () => {
                 if (response.data === 'Failed') {
                     setAuthenticationFailed('Authentication Failed');
                 } else {
-                    // const cookieValue = Cookies.get('username');
-                    // setName(cookieValue);
-
                     localStorage.setItem('user', response.data[0].username);
-                    localStorage.setItem('role', response.data[0].role);
-
-
-                    // sessionStorage.setItem('user', response.data[0].username);
-                    // sessionStorage.setItem('role', response.data[0].role);
                     navigate("/dashboard");
                 }
             }
-
 
             const error = (error) => {
                 console.log(error);

@@ -10,6 +10,12 @@ const apiEventEdit = 'http://localhost:8000/api/eventedit';
 const apiEventUpdate = 'http://localhost:8000/api/eventupdate';
 const apiEventDelete = 'http://localhost:8000/api/eventdelete';
 
+const apiNewsShow = 'http://localhost:8000/api/newsshow';
+const apiNewsAdd = 'http://localhost:8000/api/newsstore';
+const apiNewsEdit = 'http://localhost:8000/api/newsedit';
+const apiNewsUpdate = 'http://localhost:8000/api/newsupdate';
+const apiNewsDelete = 'http://localhost:8000/api/newsdelete';
+
 export {
     apiDistributorShow,
     apiDistributorAdd,
@@ -21,5 +27,10 @@ export {
     apiEventEdit,
     apiEventUpdate,
     apiEventDelete,
+    apiNewsShow,
+    apiNewsAdd,
+    apiNewsEdit,
+    apiNewsUpdate,
+    apiNewsDelete,
 
 }

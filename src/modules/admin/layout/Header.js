@@ -4,15 +4,15 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import {FiLogOut} from 'react-icons/fi';
-import {GoThreeBars} from 'react-icons/go';
+import { FiLogOut } from 'react-icons/fi';
+import { GoThreeBars } from 'react-icons/go';
 
 
 export const Header = () => {
-    const redirect = useNavigate();
+  const redirect = useNavigate();
 
-    const logoutHandle = () => {
-    sessionStorage.clear();
+  const logoutHandle = () => {
+    localStorage.clear();
     redirect("/login");
   }
   return (
@@ -22,10 +22,10 @@ export const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <NavDropdown title={<FiLogOut />} id="basic-nav-dropdown" style={{textAlign:'right'}}>
+            <NavDropdown title={<FiLogOut />} id="basic-nav-dropdown" style={{ textAlign: 'right' }}>
               <NavDropdown.Item onClick={logoutHandle} >
                 Logout
-            </NavDropdown.Item>
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

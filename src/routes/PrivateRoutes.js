@@ -3,12 +3,10 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { MainDashboard } from './../modules/admin/layout/MainDashboard';
 
 export default function PrivateRoutes() {
-const isLogedIn = sessionStorage.getItem('user');
-
-  console.log(isLogedIn);
+  const isLogedIn = localStorage.getItem('user');
   return (
     <div>
-        {isLogedIn ? <MainDashboard><Outlet /></MainDashboard>: <Navigate to="/login" replace />}
+      {isLogedIn ? <MainDashboard><Outlet /></MainDashboard> : <Navigate to="/login" replace />}
     </div>
   )
 }

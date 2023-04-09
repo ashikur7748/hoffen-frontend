@@ -103,12 +103,12 @@ export const Sidebar = () => {
                     <Accordion.Body className='text-center p-0'>
                         <ListGroup>
                             <ListGroup.Item>
-                                <Link to="/admin/contactinfo/show" className='active nav-link'>
+                                <Link to="/admin/news/add" className='active nav-link'>
                                     Add
                                 </Link>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                <Link to="/admin/contactinfo/show" className='active nav-link'>
+                                <Link to="/admin/news/show" className='active nav-link'>
                                     Show
                                 </Link>
                             </ListGroup.Item>

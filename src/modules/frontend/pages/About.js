@@ -7,17 +7,16 @@ export default function About() {
       <Row>
         <Col className='text-center'>
           <h2 style={{ color: 'var(--primaryColor' }}>About Us</h2>
-          {/* <p className='text-secondary'>Please contact us any time. We will provide 24/7 hour service</p> */}
         </Col>
       </Row>
       <Row className='mt-5' style={{ height: '65.7vh' }}>
-        <Col md={3} style={{ height: '310px' }}>
+        <Col md={4} style={{ height: '310px' }}>
           <div style={{ boxShadow: 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px', width: '100%', height: '100%', borderRadius: '5px' }}>
-            <img src="/assets/images/aboutus/ceo.jpg" alt="ceo image" width="310px" height="310px" className='rounded' />
+            <img src="/assets/images/aboutus/ceo.jpg" alt="ceo image" width="100%" height="350px" className='rounded' />
           </div>
         </Col>
 
-        <Col md={9}>
+        <Col md={8}>
           <h5 className='fw-bold'>
             Md. Nasir Uddin Ahmed
             <br />

@@ -66,4 +66,15 @@ const eventValidationSchema = Yup.object({
     .required('required *')
 });
 
-export { order, contactUs, categoryAdd, distributorValidationSchema, eventValidationSchema }
+const newsValidationSchema = Yup.object({
+  datetime: Yup.string()
+    .required('required *'),
+  title: Yup.string()
+    .required('required *'),
+  description: Yup.string()
+    .required('required *'),
+  image: Yup.string()
+    .required('required *')
+});
+
+export { order, contactUs, categoryAdd, distributorValidationSchema, eventValidationSchema, newsValidationSchema }
