@@ -1,14 +1,16 @@
 import React from 'react';
 
-export const TableHeader = (columns) => {
-   const columnItems = columns.columns.columns;
-  return (
-    <thead>
-        <tr>
-            {columnItems && columnItems.map((column,key)=>(
-                <th key={key}>{column}</th>
-            ))}
-        </tr>
-  </thead>
-  )
+export const TableHeader = ({ columns }) => {
+
+    return (
+        <thead>
+            <tr>
+                {
+                    columns.map(column => (
+                        <th key={column.label}>{column.label}</th>
+                    ))
+                }
+            </tr>
+        </thead>
+    )
 }

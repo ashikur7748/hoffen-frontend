@@ -13,14 +13,14 @@
 }
 
 .sidebar {
-    width: 250px;
+    width: 18.5%;
     height: 100vh;
     background: #f8f9fa;
     position: fixed;
 }
 
 .content {
-    width: 100%;
+    width: 81.5%;
     min-height: 100vh;
     margin-left: 250px;
 }

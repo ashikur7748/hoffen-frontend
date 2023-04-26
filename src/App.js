@@ -39,6 +39,10 @@ import { AddNews } from './modules/admin/pages/news/AddNews';
 import { ShowNews } from './modules/admin/pages/news/ShowNews';
 import { NewsDetails } from './modules/frontend/pages/NewsDetails';
 import { EventDetails } from './modules/frontend/pages/EventDetails';
+import { EditDistributor } from './modules/admin/pages/distributor/EditDistributor';
+import { ShowContactInfo } from './modules/admin/pages/contact/ShowContactInfo';
+import { EditEvent } from './modules/admin/pages/event/EditEvent';
+import { EditNews } from './modules/admin/pages/news/EditNews';
 
 
 
@@ -88,10 +92,14 @@ function App() {
           <Route path="/orderlist" element={<OrderList />} />
           <Route path="/admin/distributor/add" element={<AddDistributor />} />
           <Route path="/admin/distributor/show" element={<ShowDistributor />} />
+          <Route path="/admin/distributor/edit" element={<EditDistributor />} />
           <Route path="/admin/event/add" element={<AddEvent />} />
           <Route path="/admin/event/show" element={<ShowEvent />} />
+          <Route path="/admin/event/edit" element={<EditEvent />} />
           <Route path="/admin/news/add" element={<AddNews />} />
           <Route path="/admin/news/show" element={<ShowNews />} />
+          <Route path="/admin/news/edit" element={<EditNews />} />
+          <Route path="admin/contactinfo/show" element={<ShowContactInfo />} />
           <Route path="/errorpageprivate/:errors" element={<ErrorPagePrivate />} />
         </Route>
       </Routes>

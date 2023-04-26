@@ -26,7 +26,7 @@ const orderSubmitted = async (values, resetForm) => {
 
 const store = async (url, values) => {
   try {
-    const response = axios.post(url, values);
+    const response = await axios.post(url, values);
     return response;
   } catch (error) {
     return error;
@@ -36,7 +36,36 @@ const store = async (url, values) => {
 
 const show = async (url) => {
   try {
-    const response = axios.get(url);
+    const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+const edit = async (url, id) => {
+  try {
+    const response = await axios.post(url, id);
+    return response;
+  } catch (error) {
+    return error;
+  }
+
+}
+
+const update = async (url, values) => {
+  try {
+    const response = await axios.post(url, values);
+    return response;
+  } catch (error) {
+    return error;
+  }
+
+}
+
+const deleteRecord = async (url, id) => {
+  try {
+    const response = await axios.post(url, id);
     return response;
   } catch (error) {
     return error;
@@ -47,4 +76,4 @@ const show = async (url) => {
 
 
 
-export { orderSubmitted, store, show }
+export { orderSubmitted, store, show, edit, update, deleteRecord }
