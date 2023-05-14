@@ -29,9 +29,14 @@ const contactUs = Yup.object({
 });
 
 const categoryAdd = Yup.object({
-  product_type: Yup.string()
-    .required('required *'),
   category: Yup.string()
+    .required('required *')
+});
+
+const subCategoryAdd = Yup.object({
+  category: Yup.string()
+    .required('required *'),
+  sub_category: Yup.string()
     .required('required *'),
 });
 
@@ -77,4 +82,17 @@ const newsValidationSchema = Yup.object({
     .required('required *')
 });
 
-export { order, contactUs, categoryAdd, distributorValidationSchema, eventValidationSchema, newsValidationSchema }
+const productValidationSchema = Yup.object({
+  category: Yup.string()
+    .required('required *'),
+  sub_category: Yup.string()
+    .required('required *'),
+  title: Yup.string()
+    .required('required *'),
+  description: Yup.string()
+    .required('required *'),
+  image: Yup.string()
+    .required('required *')
+});
+
+export { order, contactUs, categoryAdd, distributorValidationSchema, eventValidationSchema, newsValidationSchema, subCategoryAdd, productValidationSchema }

@@ -1,64 +1,79 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Container, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
+
+import { productValidationSchema } from '../../../../schema/Validation';
+import { store } from '../../api/Axios';
+import { showCategory, showSubCategory } from '../../api/Axios';
+import { apiCategoryShow, apiSubCategoryShow, apiProductAdd } from '../../api/ApiList';
 
 export default function AddProduct() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
-  // const imageViews = URL.createObjectURL(selectedFile);
+  const [categoryList, setCategoryList] = useState([]);
+  const [subCategorytList, setSubCategoryList] = useState([]);
 
-  // const productAdd = async () => {
-  //   try {
-  //     const {data} = await axios.post(`http://localhost:8000/api/productadd?cat_id=${values.category}&title=${values.title}&description=${values.description}&product_image=${values.photo}`);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  useEffect(() => {
+    showCategory(apiCategoryShow)
+      .then((response) => {
+        setCategoryList(response.data);
+      })
+      .catch(({ message }) => {
+        navigate(`/errorpageprivate/${message}`);
+      });
+  }, []);
+
+  useEffect(() => {
+    showSubCategory(apiSubCategoryShow)
+      .then((response) => {
+        setSubCategoryList(response.data);
+      })
+      .catch(({ message }) => {
+        navigate(`/errorpageprivate/${message}`);
+      });
+  }, []);
 
   const formik = useFormik({
     initialValues: {
-      title: '',
       category: '',
+      sub_category: '',
+      title: '',
       description: '',
-      photo: '',
+      videolink: '',
+      image: '',
     },
-    onSubmit: values => {
-      // alert(JSON.stringify(values, null, 2));
-      // alert(URL.createObjectURL(values.photo));
-      // setSelectedFile(values.photo);
-      axios.post(`http://localhost:8000/api/productadd?cat_id=${values.category}&title=${values.title}&description=${values.description}&product_image=${values.photo}`)
-        .then(function (response) {
-          // console.log(response.statusText);
-          toast.success('Product Added Successfully', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+    validationSchema: productValidationSchema,
+
+    onSubmit: (values, { resetForm }) => {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append('category_id', values.category);
+      formData.append('subcategory_id', values.sub_category);
+      formData.append('title', values.title);
+      formData.append('description', values.description);
+      formData.append('videolink', values.videolink);
+      formData.append('image', values.image);
+
+      store(apiProductAdd, formData)
+        .then((response) => {
+          if (response.status === 200) {
+            resetForm();
+            setSelectedFile();
+            swal({
+              title: "Product Added Successfully",
+              icon: "success",
+            });
+            setIsLoading(false);
+          }
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(({ message }) => {
+          navigate(`/errorpageprivate/${message}`);
         });
-      // try {
-      //   const { response } = axios.post(`http://localhost:8000/api/productadd?cat_id=${values.category}&title=${values.title}&description=${values.description}&product_image=${values.photo}`);
-      //   console.log(response);
 
-      // } catch (error) {
-      //   console.log(error);
-      // }
-
-
-
-
-
-    },
+    }
   });
 
   const removeImageHandler = () => {
@@ -71,36 +86,62 @@ export default function AddProduct() {
         <Row className='d-flex justify-content-center align-items-center' style={{ height: '80vh' }}>
           <Col md={5}>
             <Row className='border rounded p-3'>
-              <Col md={12}><h2 className='fw-bolder bg-light py-3 text-center' style={{ color: 'var(--primaryColor)' }}>Product Add</h2></Col>
-              <Col md={12}>
-                <InputGroup className="mb-3">
-                  <InputGroup.Text id="basic-addon1">Title</InputGroup.Text>
-                  <Form.Control
-                    placeholder="Title"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-
-                    name="title"
-                    onChange={formik.handleChange}
-                    value={formik.values.title}
-                  />
-                </InputGroup>
-              </Col>
+              <Col md={12}><h2 className='fw-bolder bg-light py-3 text-center' style={{ color: 'var(--primaryColor)' }}>Add Product</h2></Col>
               <Col md={12}>
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">Category</InputGroup.Text>
                   <Form.Select aria-label="Default select example"
                     onChange={formik.handleChange}
                     value={formik.values.category}
-
                     name="category"
                   >
-                    <option>Select Category</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value=''>Choose Category</option>
+                    {categoryList && categoryList.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+
                   </Form.Select>
                 </InputGroup>
+                {formik.touched.category && formik.errors.category ? (
+                  <div className='text-danger'>{formik.errors.category}</div>
+                ) : null}
+              </Col>
+              <Col md={12}>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">Sub Category</InputGroup.Text>
+                  <Form.Select aria-label="Default select example"
+                    onChange={formik.handleChange}
+                    value={formik.values.sub_category}
+                    name="sub_category"
+                  >
+                    <option value=''>Choose SubCategory</option>
+                    {subCategorytList && subCategorytList.map((item, index) => (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    ))}
+
+                  </Form.Select>
+                </InputGroup>
+                {formik.touched.sub_category && formik.errors.sub_category ? (
+                  <div className='text-danger'>{formik.errors.sub_category}</div>
+                ) : null}
+              </Col>
+              <Col md={12}>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">Title</InputGroup.Text>
+                  <Form.Control
+                    placeholder="Title"
+                    name="title"
+                    onChange={formik.handleChange}
+                    value={formik.values.title}
+                  />
+                </InputGroup>
+                {formik.touched.title && formik.errors.title ? (
+                  <div className='text-danger'>{formik.errors.title}</div>
+                ) : null}
               </Col>
 
               <Col md={12}>
@@ -109,23 +150,39 @@ export default function AddProduct() {
                   <Form.Control as="textarea" aria-label="With textarea"
                     onChange={formik.handleChange}
                     value={formik.values.description}
-
                     name="description"
+                  />
+                </InputGroup>
+                {formik.touched.description && formik.errors.description ? (
+                  <div className='text-danger'>{formik.errors.description}</div>
+                ) : null}
+              </Col>
+              <Col md={12}>
+                <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">Video Link</InputGroup.Text>
+                  <Form.Control
+                    placeholder="Video link"
+                    aria-label="videolink"
+                    name="videolink"
+                    onChange={formik.handleChange}
+                    value={formik.values.videolink}
                   />
                 </InputGroup>
               </Col>
               <Col md={12}>
                 <Form.Group controlId="formFile" className="mb-3">
-                  <input className='form-control' name="photo" type="file"
+                  <input className='form-control' name="image" type="file"
                     accept='image/*'
                     onChange={(e) => {
-                      formik.setFieldValue('photo', e.currentTarget.files[0].name);
+                      formik.setFieldValue('image', e.currentTarget.files[0]);
                       setSelectedFile(e.target.files[0]);
-                      // console.log( e.target.files[0]);
                     }}
 
                   />
                 </Form.Group>
+                {formik.touched.image && formik.errors.image ? (
+                  <div className='text-danger'>{formik.errors.image}</div>
+                ) : null}
               </Col>
               {selectedFile &&
                 <Col md={12}>
@@ -135,9 +192,12 @@ export default function AddProduct() {
                   </div>
                 </Col>}
               <Col md={12} className='text-end'>
-                <Button style={{ background: 'var(--primaryColor)', color: 'white' }} type="submit">
+                {isLoading ? <button className='btn' style={{ background: 'var(--primaryColor)', color: 'white' }} type="button" disabled>
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Submitting...
+                </button> : <Button style={{ background: 'var(--primaryColor)', color: 'white' }} type="submit">
                   Submit
-                </Button>
+                </Button>}
               </Col>
             </Row>
           </Col>

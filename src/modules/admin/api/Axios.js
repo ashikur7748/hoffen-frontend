@@ -73,7 +73,25 @@ const deleteRecord = async (url, id) => {
 
 }
 
+const showCategory = async (url) => {
+  try {
+    const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+const showSubCategory = async (url) => {
+  try {
+    const response = await axios.get(url);
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
 
 
 
-export { orderSubmitted, store, show, edit, update, deleteRecord }
+
+export { orderSubmitted, store, show, edit, update, deleteRecord, showCategory, showSubCategory }

@@ -19,11 +19,7 @@ export const EditDistributor = () => {
 
     const location = useLocation();
     const id = { id: location.state }
-    // const id = {
-    //     params: {
-    //         id: location.state,
-    //     }
-    // }
+
     const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [distributor, setDistributor] = useState("");
@@ -35,7 +31,6 @@ export const EditDistributor = () => {
 
 
     useEffect(() => {
-        // edit(`http://localhost:8000/api/distributoredit/${location.state}`)
         edit(apiDistributorEdit, id)
             .then((response) => {
                 if (response.data[0]) {

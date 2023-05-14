@@ -55,6 +55,19 @@ export default function ProductBuy() {
 
               <Col md={12}>
                 <InputGroup className="mb-3">
+                  <InputGroup.Text id="basic-addon1">Product</InputGroup.Text>
+                  <Form.Control
+                    name="producttitle"
+                    value={productTitle}
+                    disabled
+                  />
+                </InputGroup>
+                {formik.touched.fullname && formik.errors.fullname ? (
+                  <div className='text-danger'>{formik.errors.fullname}</div>
+                ) : null}
+              </Col>
+              <Col md={12}>
+                <InputGroup className="mb-3">
                   <InputGroup.Text id="basic-addon1">Fullname</InputGroup.Text>
                   <Form.Control
                     placeholder="Fullname"

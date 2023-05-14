@@ -23,11 +23,7 @@ import './App.css';
 import Dashboard from './modules/admin/pages/Dashboard';
 import Login from './modules/admin/pages/login/Login';
 import Register from './modules/admin/pages/register/Register';
-import AddProduct from './modules/admin/pages/product/AddProduct';
 import { OrderList } from './modules/admin/pages/product/OrderList';
-import { AddCategory } from './modules/admin/pages/product/AddCategory';
-import { AddCompany } from './modules/admin/pages/product/AddCompany';
-import { ProductList } from './modules/admin/pages/product/ProductList';
 import ProductBuy from './modules/frontend/pages/ProductBuy';
 import { ErrorShow } from './modules/frontend/pages/ErrorShow';
 import { ErrorPagePrivate } from './modules/admin/pages/ErrorPagePrivate';
@@ -43,19 +39,21 @@ import { EditDistributor } from './modules/admin/pages/distributor/EditDistribut
 import { ShowContactInfo } from './modules/admin/pages/contact/ShowContactInfo';
 import { EditEvent } from './modules/admin/pages/event/EditEvent';
 import { EditNews } from './modules/admin/pages/news/EditNews';
-
-
-
-
-
-
-
-
-
+import { AddCategory } from './modules/admin/pages/category/AddCategory';
+import { ShowCategory } from './modules/admin/pages/category/ShowCategory';
+import { EditCategory } from './modules/admin/pages/category/EditCategory';
+import { AddSubCategory } from './modules/admin/pages/category/AddSubCategory';
+import { ShowSubCategory } from './modules/admin/pages/category/ShowSubCategory';
+import { EditSubCategory } from './modules/admin/pages/category/EditSubCategory';
+import { ShowProduct } from './modules/admin/pages/product/ShowProduct';
+import AddProduct from './modules/admin/pages/product/AddProduct';
+import { EditProduct } from './modules/admin/pages/product/EditProduct';
+import { Products } from './modules/frontend/pages/Products';
+import { ProductVideo } from './modules/frontend/pages/ProductVideo';
+import { ProductCategoryWiseView } from './modules/frontend/pages/ProductCategoryWiseView';
 
 
 function App() {
-
 
   return (
     <BrowserRouter>
@@ -65,8 +63,14 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/source" element={<Source />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/cat_id/:id" element={<ProductCategoryWiseView />} />
+
+
           <Route path="/diagnostic" element={<Diagnostic />} />
-          <Route path="/diagnostic/productdetails" element={<ProductDetails />} />
+          <Route path="/products/productdetails" element={<ProductDetails />} />
+          <Route path="/products/productdetails/videoview" element={<ProductVideo />} />
+
           <Route path="/surgical" element={<Surgical />} />
           <Route path="/others" element={<Others />} />
           <Route path="/news" element={<News />} />
@@ -85,20 +89,33 @@ function App() {
 
         <Route element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/addcompany" element={<AddCompany />} />
-          <Route path="/addproduct" element={<AddProduct />} />
-          <Route path="/addcategory" element={<AddCategory />} />
-          <Route path="/productlist" element={<ProductList />} />
-          <Route path="/orderlist" element={<OrderList />} />
+
           <Route path="/admin/distributor/add" element={<AddDistributor />} />
           <Route path="/admin/distributor/show" element={<ShowDistributor />} />
           <Route path="/admin/distributor/edit" element={<EditDistributor />} />
+
           <Route path="/admin/event/add" element={<AddEvent />} />
           <Route path="/admin/event/show" element={<ShowEvent />} />
           <Route path="/admin/event/edit" element={<EditEvent />} />
+
           <Route path="/admin/news/add" element={<AddNews />} />
           <Route path="/admin/news/show" element={<ShowNews />} />
           <Route path="/admin/news/edit" element={<EditNews />} />
+
+          <Route path="/admin/category/add" element={<AddCategory />} />
+          <Route path="/admin/category/show" element={<ShowCategory />} />
+          <Route path="/admin/category/edit" element={<EditCategory />} />
+
+          <Route path="/admin/subcategory/add" element={<AddSubCategory />} />
+          <Route path="/admin/subcategory/show" element={<ShowSubCategory />} />
+          <Route path="/admin/subcategory/edit" element={<EditSubCategory />} />
+
+          <Route path="/admin/product/add" element={<AddProduct />} />
+          <Route path="/admin/product/show" element={<ShowProduct />} />
+          <Route path="/admin/product/edit" element={<EditProduct />} />
+
+          <Route path="/orderlist" element={<OrderList />} />
+
           <Route path="admin/contactinfo/show" element={<ShowContactInfo />} />
           <Route path="/errorpageprivate/:errors" element={<ErrorPagePrivate />} />
         </Route>

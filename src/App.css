@@ -108,3 +108,19 @@ body {
   display: block;
   padding: 5px;
 }
+
+.products {
+  transition: all 2s;
+  -webkit-transition: all 2s;
+  -moz-transition: all 2s;
+  -ms-transition: all 2s;
+  -o-transition: all 2s;
+}
+
+.product_category_box {
+  display: none;
+}
+
+.products:hover>.product_category_box {
+  display: block;
+}

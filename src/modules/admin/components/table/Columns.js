@@ -3,6 +3,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { MdDeleteForever } from 'react-icons/md';
 import { deleteRecord } from "../../api/Axios";
 import { apiDistributorDelete } from "../../api/ApiList";
+import moment from 'moment/moment';
 import swal from 'sweetalert';
 
 
@@ -41,7 +42,7 @@ const orderList = [
     {
         label: "Order Date",
         path: 'created_at',
-        content: (item, path) => <td>{item[path]}</td>
+        content: (item, path) => <td>{moment(item[path]).format('MMMM Do YYYY, h:mm:ss a')}</td>
     },
 ];
 

@@ -3,32 +3,57 @@ import { useFormik } from 'formik';
 import { Container, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import swal from 'sweetalert';
-import axios from 'axios';
 
-import { edit, update } from '../../api/Axios';
-import { apiEventEdit, apiEventUpdate } from '../../api/ApiList';
+import { edit, update, showCategory, showSubCategory } from '../../api/Axios';
+import { apiProductEdit, apiProductUpdate, apiCategoryShow, apiSubCategoryShow, } from '../../api/ApiList';
 
-export const EditEvent = () => {
+export const EditProduct = () => {
     const location = useLocation();
     const id = { id: location.state }
     const navigate = useNavigate();
 
     const [data, setData] = useState([]);
-    const [datetime, setDateTime] = useState("");
+    const [category, setCategory] = useState("");
+    const [subCategory, setSubCategory] = useState("");
     const [title, setTitle] = useState("");
-    const [venue, setVenue] = useState("");
+    const [videoLink, setVideoLink] = useState("");
     const [description, setDescription] = useState("");
     const [image, setImage] = useState("");
     const [imagePreview, setImagePreview] = useState(false);
+
+    const [categoryList, setCategoryList] = useState([]);
+    const [subCategorytList, setSubCategoryList] = useState([]);
+
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        edit(apiEventEdit, id)
+        showCategory(apiCategoryShow)
+            .then((response) => {
+                setCategoryList(response.data);
+            })
+            .catch(({ message }) => {
+                navigate(`/errorpageprivate/${message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        showSubCategory(apiSubCategoryShow)
+            .then((response) => {
+                setSubCategoryList(response.data);
+            })
+            .catch(({ message }) => {
+                navigate(`/errorpageprivate/${message}`);
+            });
+    }, []);
+
+    useEffect(() => {
+        edit(apiProductEdit, id)
             .then((response) => {
                 if (response.data[0]) {
-                    setDateTime(response.data[0].datetime);
+                    setCategory(response.data[0].category_id);
+                    setSubCategory(response.data[0].subcategory_id);
                     setTitle(response.data[0].title);
-                    setVenue(response.data[0].venue);
+                    setVideoLink(response.data[0].videolink);
                     setDescription(response.data[0].description);
                     setImage(response.data[0].image);
                 }
@@ -44,21 +69,22 @@ export const EditEvent = () => {
 
         const formData = new FormData();
         formData.append('id', location.state);
-        formData.append('datetime', datetime);
+        formData.append('category_id', category);
+        formData.append('subcategory_id', subCategory);
         formData.append('title', title);
-        formData.append('venue', venue);
         formData.append('description', description);
+        formData.append('videolink', videoLink);
         formData.append('image', image);
 
 
-        update(apiEventUpdate, formData)
+        update(apiProductUpdate, formData)
             .then((response) => {
                 if (response.status === 200) {
                     swal({
                         title: "Updated Successfully",
                         icon: "success",
                     });
-                    navigate('/admin/event/show');
+                    navigate('/admin/product/show');
                     setIsLoading(false);
                 }
             })
@@ -74,17 +100,43 @@ export const EditEvent = () => {
                     <Col md={5}>
                         <Row className='border rounded p-3'>
                             <Col md={12} className="mb-3">
-                                <h2 className='fw-bolder bg-light py-3 text-center' style={{ color: 'var(--primaryColor)' }}>Event Update</h2>
+                                <h2 className='fw-bolder bg-light py-3 text-center' style={{ color: 'var(--primaryColor)' }}>Update Product</h2>
                             </Col>
                             <Col md={12}>
                                 <InputGroup className="mb-3">
-                                    <InputGroup.Text id="basic-addon1">DateTime</InputGroup.Text>
-                                    <Form.Control
-                                        type="datetime-local"
-                                        name="datetime"
-                                        onChange={(e) => setDateTime(e.target.value)}
-                                        value={datetime}
-                                    />
+                                    <InputGroup.Text id="basic-addon1">Category</InputGroup.Text>
+                                    <Form.Select aria-label="Default select example"
+                                        onChange={(e) => setCategory(e.target.value)}
+                                        value={category}
+                                        name="category"
+                                    >
+                                        <option value=''>Choose Category</option>
+                                        {categoryList && categoryList.map((item, index) => (
+                                            <option key={index} value={item.id}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+
+                                    </Form.Select>
+                                </InputGroup>
+
+                            </Col>
+                            <Col md={12}>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Text id="basic-addon1">Sub Category</InputGroup.Text>
+                                    <Form.Select aria-label="Default select example"
+                                        onChange={(e) => setSubCategory(e.target.value)}
+                                        value={subCategory}
+                                        name="sub_category"
+                                    >
+                                        <option value=''>Choose SubCategory</option>
+                                        {subCategorytList && subCategorytList.map((item, index) => (
+                                            <option key={index} value={item.id}>
+                                                {item.name}
+                                            </option>
+                                        ))}
+
+                                    </Form.Select>
                                 </InputGroup>
 
                             </Col>
@@ -100,31 +152,30 @@ export const EditEvent = () => {
                                 </InputGroup>
 
                             </Col>
-                            <Col md={12}>
-                                <InputGroup className="mb-3">
-                                    <InputGroup.Text id="basic-addon1">Venue</InputGroup.Text>
-                                    <Form.Control
-                                        placeholder="Venue"
-                                        name="venue"
-                                        onChange={(e) => setVenue(e.target.value)}
-                                        value={venue}
-                                    />
-                                </InputGroup>
 
-                            </Col>
                             <Col md={12}>
                                 <InputGroup className="mb-3">
                                     <InputGroup.Text>Description</InputGroup.Text>
                                     <Form.Control as="textarea" aria-label="With textarea"
-                                        name="description"
-                                        placeholder="Description"
                                         onChange={(e) => setDescription(e.target.value)}
                                         value={description}
+                                        name="description"
                                     />
                                 </InputGroup>
 
                             </Col>
-
+                            <Col md={12}>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Text id="basic-addon1">Video Link</InputGroup.Text>
+                                    <Form.Control
+                                        placeholder="Video link"
+                                        aria-label="videolink"
+                                        name="videolink"
+                                        onChange={(e) => setVideoLink(e.target.value)}
+                                        value={videoLink}
+                                    />
+                                </InputGroup>
+                            </Col>
                             <Col md={12}>
                                 <Form.Group controlId="formFile" className="mb-3">
                                     <input className='form-control' name="image" type="file"
@@ -133,12 +184,13 @@ export const EditEvent = () => {
                                             setImage(e.target.files[0]);
                                             setImagePreview(true);
                                         }}
+
                                     />
                                 </Form.Group>
                                 <div>
                                     {imagePreview ?
                                         <img src={URL.createObjectURL(image)} alt=" Preview" width="150px" height="150px" /> :
-                                        <img src={"http://localhost:8000/storage/event/" + image} width={150} height={150} />}
+                                        <img src={"http://localhost:8000/storage/products/" + image} width={150} height={150} />}
                                 </div>
                             </Col>
 

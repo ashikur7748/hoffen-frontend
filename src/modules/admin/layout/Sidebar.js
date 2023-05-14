@@ -20,6 +20,34 @@ export const Sidebar = () => {
                     </Link>
                 </Accordion.Item>
 
+                <Accordion.Item eventKey="9">
+                    <Accordion.Header>Category</Accordion.Header>
+                    <Accordion.Body className='text-center p-0'>
+                        <ListGroup>
+                            <ListGroup.Item>
+                                <Link to="/admin/category/add" className='nav-link'>
+                                    Add Category
+                                </Link>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Link to="/admin/category/show" className='nav-link'>
+                                    Show Category
+                                </Link>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Link to="/admin/subcategory/add" className='nav-link'>
+                                    Add Sub Category
+                                </Link>
+                            </ListGroup.Item>
+                            <ListGroup.Item>
+                                <Link to="/admin/subcategory/show" className='nav-link'>
+                                    Show Sub Category
+                                </Link>
+                            </ListGroup.Item>
+                        </ListGroup>
+                    </Accordion.Body>
+                </Accordion.Item>
+
                 <Accordion.Item eventKey="1">
                     <Accordion.Header>Distributor</Accordion.Header>
                     <Accordion.Body className='text-center p-0'>
@@ -37,33 +65,24 @@ export const Sidebar = () => {
                         </ListGroup>
                     </Accordion.Body>
                 </Accordion.Item>
+
                 <Accordion.Item eventKey="2">
                     <Accordion.Header>Product</Accordion.Header>
                     <Accordion.Body className='text-center p-0'>
                         <ListGroup>
                             <ListGroup.Item>
-                                <Link to="/addcompany" className='nav-link'>
-                                    Product Type Add
+                                <Link to="/admin/product/add" className='nav-link'>
+                                    Add Product
                                 </Link>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                <Link to="/addcategory" className='nav-link'>
-                                    Category Add
-                                </Link>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Link to="/addproduct" className='nav-link'>
-                                    Product Add
-                                </Link>
-                            </ListGroup.Item>
-                            <ListGroup.Item>
-                                <Link to="/productlist" className='nav-link'>
-                                    Product List
+                                <Link to="/admin/product/show" className='nav-link'>
+                                    Show Product
                                 </Link>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Link to="/orderlist" className='nav-link'>
-                                    Order List
+                                    Show Order
                                 </Link>
                             </ListGroup.Item>
                         </ListGroup>
